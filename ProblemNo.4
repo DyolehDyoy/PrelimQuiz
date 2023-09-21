@@ -1,0 +1,27 @@
+fun convertTemperature(temperature: Double, from: String, to: String): Double {
+    return when (Pair(from.toUpperCase(), to.toUpperCase())) {
+        Pair("F", "C") -> (temperature - 32) * 5 / 9
+        Pair("F", "K") -> (temperature + 459.67) * 5 / 9
+        Pair("C", "F") -> temperature * 9 / 5 + 32
+        Pair("C", "K") -> temperature + 273.15
+        Pair("K", "F") -> temperature * 9 / 5 - 459.67
+        Pair("K", "C") -> temperature - 273.15
+        else -> throw IllegalArgumentException("Invalid temperature units provided.")
+    }
+}
+
+fun main() {
+    try {
+        println("===Temperature Converter===")
+        println("Enter the temperature: ")
+        val temperature = readLine()?.toDouble() ?: 0.0
+        println("Enter the source unit (F, C, or K): ")
+        val fromUnit = readLine()?.toUpperCase() ?: ""
+        println("Enter the target unit (F, C, or K): ")
+        val toUnit = readLine()?.toUpperCase() ?: ""
+        val convertedTemperature = convertTemperature(temperature, fromUnit, toUnit)
+        println("$temperature $fromUnit is equal to $convertedTemperature $toUnit")
+    } catch (e: Exception) {
+        println("Error: ${e.message}")
+    }
+}
